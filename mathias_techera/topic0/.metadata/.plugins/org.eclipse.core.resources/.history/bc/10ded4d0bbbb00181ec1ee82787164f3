@@ -1,0 +1,16 @@
+package com.mathiastechera.sigleton;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		PersonsDataFactory personsDataFactory = new PersonsDataFactory();
+
+		DataBase studentsData =  personsDataFactory.getPersonsData("STUDENT");		
+		studentsData.getTheNames();
+		
+		DataBase teachersData =  personsDataFactory.getPersonsData("Teacher");		
+		teachersData.getTheNames();
+	}
+
+}

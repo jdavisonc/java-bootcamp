@@ -1,0 +1,17 @@
+package com.mathiastechera.abstractfactory.factory;
+
+public class SubjectFactory extends AbstractFactory {
+
+	@Override
+	public PersonDB getPersonsData(String personsType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SubjectDB getSubjectData(String subject) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

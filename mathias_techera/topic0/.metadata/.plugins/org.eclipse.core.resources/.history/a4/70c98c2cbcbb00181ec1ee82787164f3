@@ -1,0 +1,17 @@
+package com.mathiastechera.sigleton;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		DataBase db = DataBase.getInstance();
+		
+		if(db.connect()) {
+			System.out.println("Connected succesfully.");
+		}else {
+			System.out.println("Error connecting with the DB.");
+		}
+		
+	}
+	
+}
