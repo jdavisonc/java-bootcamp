@@ -4,24 +4,26 @@ public class Demo {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		DatabaseFactory oracleFactory = FactoryProducer.getFactory("Oracle");
-		Oracle oracle1 = oracleFactory.getOracleDb("one");
 		
-		oracle1.getConnection();
+		DataBaseType oracleType = DataBaseType.ORACLE;
+		DatabaseFactory oracleFactory = FactoryProducer.getFactory(oracleType);
+		Database oracle1 = oracleFactory.getDatabase(1);
 		
-		Oracle oracle2 = oracleFactory.getOracleDb("two");
-		oracle2.getConnection();
+		oracle1.connect();
 		
-		DatabaseFactory mysqlFactory = FactoryProducer.getFactory("MySQL");
-		MySql mysql2 = mysqlFactory.getMySqlDb("two");
+		Database oracle2 = oracleFactory.getDatabase(2);
+		oracle2.connect();
+		DataBaseType mysqlType = DataBaseType.MYSQL;
+		DatabaseFactory mysqlFactory = FactoryProducer.getFactory(mysqlType);
+		Database mysql2 = mysqlFactory.getDatabase(1);
 		
-		String connection = mysql2.getConnection();
+		String connection = mysql2.connect();
 		
 		System.out.println(connection);
 		
-		MySql mysql1 = mysqlFactory.getMySqlDb("one");
+		Database mysql1 = mysqlFactory.getDatabase(1);
 		
-		mysql1.getConnection();
+		mysql1.connect();
 		
 		
 	}

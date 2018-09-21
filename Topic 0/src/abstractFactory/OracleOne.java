@@ -1,9 +1,8 @@
 package abstractFactory;
 
-public class OracleOne implements Oracle {
-
+public class OracleOne implements Database {
 	@Override
-	public String getConnection() {
+	public String connect() {
 		return "Connected to OracleOne";
 	}
 

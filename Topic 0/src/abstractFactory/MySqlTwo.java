@@ -1,9 +1,8 @@
 package abstractFactory;
 
-public class MySqlTwo implements MySql{
-
+public class MySqlTwo implements Database {
 	@Override
-	public String getConnection() {
+	public String connect() {
 		return "Connected to MySql Two";
 	}
 

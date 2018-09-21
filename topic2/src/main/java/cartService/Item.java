@@ -30,5 +30,10 @@ public class Item {
 		return this.name+" - $" + this.price;
 	}
 	
+	@Override
+	public int hashCode() {
+		return this.name.hashCode();
+	}
+	
 	
 }

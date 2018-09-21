@@ -1,19 +1,14 @@
 package abstractFactory;
 
-public class MySqlFactory extends DatabaseFactory{
+public class MySqlFactory implements DatabaseFactory{
 
 	@Override
-	MySql getMySqlDb(String mySql) {
-		
-		if (mySql.equalsIgnoreCase("TWO")) {
-			return new MySqlTwo();
+	public Database getDatabase(int id) {
+		switch (id) {
+		case 1: return new MySqlOne();
+		case 2: return new MySqlTwo();
+		default: return new MySqlOne();
 		}
-		return new MySqlOne();
-	}
-
-	@Override
-	Oracle getOracleDb(String oracle) {
-		return null;
 	}
 
 }

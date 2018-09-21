@@ -1,9 +1,9 @@
 package abstractFactory;
 
-public class MySqlOne implements MySql {
+public class MySqlOne implements Database {
 
 	@Override
-	public String getConnection() {
+	public String connect() {
 		return "Connected to MySql One";
 	}
 

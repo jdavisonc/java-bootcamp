@@ -1,20 +1,21 @@
 package cartService;
+
 import java.util.LinkedList;
 
 public interface CartService {
 	// Returns the list of items in the cart
-	public LinkedList<Item> getItems();
+	LinkedList<Item> getItems();
 
 	// Adds an item to the cart, returns true if successful
-	public boolean addItem(Item item);
+	boolean addItem(Item item);
 
 	// Empties the cart, returns true if successful
-	public void emptyCart();
+	void emptyCart();
 
 	// Returns the total price of the cart
-	public double price();
+	double price();
 
 	// Removes the given Item from the cart, returns true if successful, returns
 	// false if item is not present.
-	public boolean remove(Item item);
+	boolean remove(Item item);
 }
