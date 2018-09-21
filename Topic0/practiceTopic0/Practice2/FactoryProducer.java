@@ -1,4 +1,4 @@
-package Practice2_alternate;
+package practiceTopic0.Practice2;
 
 public class FactoryProducer {
 	public static AbstractFactory getFactory(String choice) {

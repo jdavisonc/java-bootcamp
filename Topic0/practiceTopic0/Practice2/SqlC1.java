@@ -1,4 +1,4 @@
-package Practice2_alternate;
+package practiceTopic0.Practice2;
 
 public class SqlC1 implements SqlConnection {
 	@Override
