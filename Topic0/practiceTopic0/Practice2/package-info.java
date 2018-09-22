@@ -1,7 +1,5 @@
 /**
- * 
- */
-/**
+ * Practice AbstractFactory example.
  * @author Felipe Carrau
  *
  */

@@ -1,12 +1,12 @@
 package practiceTopic0.Practice4;
 
 public interface BuilderInterface {
-		public void buildUser();
+	public void withUser(String user);
 
-		public void buildPassword();
+	public void withPassword(String pass);
 
-		public void buildDB();
+	public void withDB(String db);
 
-		public Connection getConnection();
-	
+	public Connection buildConnection();
+
 }
