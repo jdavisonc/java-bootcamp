@@ -8,9 +8,9 @@ public class DatabaseDirector {
 		this.dbBuilder = dbBuilder;
 	}
 	
-	public void buildDb() {
+	public void buildDb(String user) {
+		dbBuilder.buildUser(user);
 		dbBuilder.buildUrl();
-		dbBuilder.buildUser();
 	}
 	
 	public Database getDatabase() {

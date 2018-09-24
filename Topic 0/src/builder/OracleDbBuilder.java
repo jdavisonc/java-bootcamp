@@ -10,12 +10,12 @@ public class OracleDbBuilder implements DatabaseBuilder {
 	
 	@Override
 	public void buildUrl() {
-		db.setDbUrl("localhost://oracle");
+		db.setDbUrl("localhost://oracle:"+ db.getUser());
 	}
 
 	@Override
-	public void buildUser() {
-		db.setUser("system");
+	public void buildUser(String user) {
+		db.setUser(user);
 		
 	}
 

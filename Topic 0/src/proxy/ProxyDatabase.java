@@ -9,4 +9,10 @@ public class ProxyDatabase {
 		}
 		db.connect();
 	}
+	
+	public int[]  getData() {
+		return db.getData();
+	}
+	
+	
 }

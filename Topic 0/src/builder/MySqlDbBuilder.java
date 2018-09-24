@@ -10,12 +10,12 @@ public class MySqlDbBuilder implements DatabaseBuilder {
 	
 	@Override
 	public void buildUrl() {
-		db.setDbUrl("localhost://mysql");
+		db.setDbUrl("localhost://mysql:" + db.getUser());
 	}
 
 	@Override
-	public void buildUser() {
-		db.setUser("admin");
+	public void buildUser(String user) {
+		db.setUser(user);
 		
 	}
 
