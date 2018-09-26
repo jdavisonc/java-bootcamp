@@ -12,7 +12,7 @@ public interface CartService {
 	public void emptyCart();
 
 	// Returns the total price of the cart
-	public double price();
+	public int price();
 
 	// Removes the given Item from the cart, returns true if successful, returns
 	// false if item is not present.

@@ -28,14 +28,14 @@ public class CartServiceImpl implements CartService {
 		return this.items.add(item);
 	}
 
-	@PostMapping("/items/empty")
+	@DeleteMapping("/items/empty")
 	public void emptyCart() {
 		this.items.clear();
 	}
 
 	@GetMapping("/items/price")
-	public double price() {
-		double result = 0;
+	public int price() {
+		int result = 0;
 		for (Item item : this.items) {
 			result += item.getPrice();
 		}
