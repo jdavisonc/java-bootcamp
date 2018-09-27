@@ -1,13 +1,13 @@
 package topic5.userService;
 
 public interface UserService {
-	User createUser(String userName, String nickName, String email);
+	User createUser(User user);
 
 	Boolean deleteUser(String userName);
 
-	User updateUserByNickName(String nickName, String userName, String email);
+	User updateUserByNickName(User user, String nickName);
 
-	User updateUserByUserName(String userName, String nickName, String email);
+	User updateUserByUserName(User user, String userName);
 
 	User getUserByNickName(String nickName);
 
