@@ -13,5 +13,11 @@ public class ExceptionController {
 	public void handleNotFound(UserNotFoundException ex) {
 		System.out.println("Requested user not found");
 	}
+	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(UserAlreadyExistsException.class)
+	public void handleAlreadyExists(UserNotFoundException ex) {
+		System.out.println("UserName already in use");
+	}
 
 }
