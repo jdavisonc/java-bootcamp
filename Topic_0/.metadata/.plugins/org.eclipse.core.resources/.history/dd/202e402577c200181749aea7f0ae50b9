@@ -1,0 +1,29 @@
+package proxy;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class DatabaseProxyTest {
+	DatabaseProxyTest database = new DatabaseProxyTest();
+	@Test
+	void testDatabaseProxy() {
+		database.);
+	}
+
+	@Test
+	void testShowData() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testDeleteData() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testModifyData() {
+		fail("Not yet implemented");
+	}
+
+}

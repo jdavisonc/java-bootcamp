@@ -1,0 +1,18 @@
+package proxy;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class DatabaseProxyTest {
+	DatabaseProxy databaseProxy = new DatabaseProxy(new User("Juan","123",true));
+	
+	@Test
+	void test() {
+		
+		databaseProxy.showData("data2");
+		
+		
+	}
+
+}

@@ -1,0 +1,15 @@
+package abstract_factory;
+
+public class ClientsFactory extends DatabaseFactory {
+
+	@Override
+	DatabaseInterface getMysql() {
+		return new ClientsMsql();
+
+	}
+
+	@Override
+	DatabaseInterface getMongoDB() {
+		return new ClientsMdb();
+	}
+}

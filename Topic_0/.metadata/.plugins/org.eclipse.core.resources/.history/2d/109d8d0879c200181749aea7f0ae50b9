@@ -1,0 +1,18 @@
+package proxy;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class DatabaseProxyTest {
+	DatabaseProxy databaseProxy = new DatabaseProxy(new User("Juan","123",true));
+	Database mainDatabase = new Database();
+	@Test
+	void test() {
+		assert(mainDatabase.content.contains("data2"));
+		//databaseProxy.deleteData("data2");
+		assert(mainDatabase.content.contains("data2"));
+		
+	}
+
+}
