@@ -1,7 +1,6 @@
 package topic5.cartService;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedList;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,27 +9,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import topic5.ItemNotFoundException;
-
 @RestController
 public class CartServiceImpl implements CartService {
 	
 	
 	private int id = 0;
-	
-	private HashMap<Integer, Item> items = new HashMap<Integer, Item>();
+	private LinkedList<Item> items = new LinkedList<Item>();
 
 	@GetMapping("/items")
-	public Collection<Item> getItems() {
-		return this.items.values();
+	public LinkedList<Item> getItems() {
+		return this.items;
 	}
 
 	@PostMapping("/items")
-	public Item addItem(@RequestBody Item item) {
+	public boolean addItem(@RequestBody Item item) {
 		item.setId(id);
-		this.items.put(id, item);
 		id++;
-		return item;
+		return this.items.add(item);
 	}
 
 	@DeleteMapping("/items/empty")
@@ -41,7 +36,7 @@ public class CartServiceImpl implements CartService {
 	@GetMapping("/items/price")
 	public int price() {
 		int result = 0;
-		for (Item item : this.items.values()) {
+		for (Item item : this.items) {
 			result += item.getPrice();
 		}
 		return result;
@@ -49,12 +44,12 @@ public class CartServiceImpl implements CartService {
 
 	@DeleteMapping("/items/{id}")
 	public boolean remove(@PathVariable int id) {
-		if (items.containsKey(id)) {
-			this.items.remove(id);
-			return true;
+		for (Item item : this.items) {
+			if(item.getId() == id) {
+				return this.items.remove(item);
+			}
 		}
-
-		throw new ItemNotFoundException();
+		return false;
 	}
 
 }

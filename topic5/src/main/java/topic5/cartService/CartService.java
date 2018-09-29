@@ -1,12 +1,12 @@
 package topic5.cartService;
-import java.util.Collection;
+import java.util.LinkedList;
 
 public interface CartService {
 	// Returns the list of items in the cart
-	public Collection<Item> getItems();
+	public LinkedList<Item> getItems();
 
 	// Adds an item to the cart, returns true if successful
-	public Item addItem(Item item);
+	public boolean addItem(Item item);
 
 	// Empties the cart, returns true if successful
 	public void emptyCart();

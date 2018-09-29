@@ -26,10 +26,10 @@ public class UserServiceImplTest {
 		// Add test user
 		this.mockMvc
 				.perform(post("/user").contentType(MediaType.APPLICATION_JSON)
-						.content("{\"userName\":\"Flash\",\"nickName\":\"Gordon\",\"email\":\"f.gordon@gmail.com\"}"))
+						.content("{\"userName\":\"Arnold\",\"nickName\":\"Schwarzenegger\",\"email\":\"a.schwarzenegger@gmail.com\"}"))
 				.andExpect(status().isOk());
 		// use get to check if its there
-		this.mockMvc.perform(get("/user/userName/{userName}", "Flash")).andExpect(status().isOk());
+		this.mockMvc.perform(get("/user/userName/{userName}", "Arnold")).andExpect(status().isOk());
 	}
 
 	@Test
@@ -37,12 +37,12 @@ public class UserServiceImplTest {
 		// Add a user
 		this.mockMvc
 				.perform(post("/user").contentType(MediaType.APPLICATION_JSON)
-						.content("{\"userName\":\"Carmen\",\"nickName\":\"San Diego\",\"email\":\"san.diego@gmail.com\"}"))
+						.content("{\"userName\":\"Mike\",\"nickName\":\"Tyson\",\"email\":\"m.tyson@gmail.com\"}"))
 				.andExpect(status().isOk());
 		// Delete the user
-		this.mockMvc.perform(delete("/user/{username}", "Carmen")).andExpect(status().isOk());
+		this.mockMvc.perform(delete("/user/{username}", "Mike")).andExpect(status().isOk());
 		// Check if its there
-		this.mockMvc.perform(get("/user/userName/{userName}", "Carmen")).andExpect(status().isNotFound());
+		this.mockMvc.perform(get("/user/userName/{userName}", "Mike")).andExpect(status().isNotFound());
 	}
 
 	@Test
@@ -53,31 +53,31 @@ public class UserServiceImplTest {
 						.content("{\"userName\":\"Mike\",\"nickName\":\"Tyson\",\"email\":\"m.tyson@gmail.com\"}"))
 				.andExpect(status().isOk());
 		MvcResult result = this.mockMvc
-				.perform(post("/user/updateByUserName/{UserName}", "Mike").contentType(MediaType.APPLICATION_JSON)
+				.perform(post("/user/updateByUserName/{userName}", "Mike").contentType(MediaType.APPLICATION_JSON)
 						.content("{\"userName\":\"Mike\",\"nickName\":\"Tyson\",\"email\":\"tyson.m@gmail.com\"}"))
 				.andExpect(status().isOk()).andReturn();
 
 		String resultAsString = result.getResponse().getContentAsString();
 
-		assertEquals("{\"userName\":\"Mike\",\"nickName\":\"Tyson\",\"email\":\"tyson.m@gmail.com\"}", resultAsString );
+		assertEquals(resultAsString, "{\"userName\":\"Mike\",\"nickName\":\"Tyson\",\"email\":\"tyson.m@gmail.com\"}");
 
 	}
 
 	@Test
-	public void testUpdateUserByNickName() throws Exception {
+	public void testUpdateUserByNickName() throws Exception{
 		// Add a user
 		this.mockMvc
 				.perform(post("/user").contentType(MediaType.APPLICATION_JSON)
-						.content("{\"userName\":\"Frank\",\"nickName\":\"Sinatra\",\"email\":\"franSinatra@gmail.com\"}"))
+						.content("{\"userName\":\"Mike\",\"nickName\":\"Tyson\",\"email\":\"m.tyson@gmail.com\"}"))
 				.andExpect(status().isOk());
 		MvcResult result = this.mockMvc
-				.perform(post("/user/updateByNickName/{nickname}", "Sinatra").contentType(MediaType.APPLICATION_JSON)
-						.content("{\"userName\":\"Frank\",\"nickName\":\"Sinatra\",\"email\":\"f.sinatra@gmail.com\"}"))
+				.perform(post("/user/updateByNickName/{nickname}", "Tyson").contentType(MediaType.APPLICATION_JSON)
+						.content("{\"userName\":\"Mike\",\"nickName\":\"Tyson\",\"email\":\"tyson.m@gmail.com\"}"))
 				.andExpect(status().isOk()).andReturn();
 
 		String resultAsString = result.getResponse().getContentAsString();
 
-		assertEquals(resultAsString, "{\"userName\":\"Frank\",\"nickName\":\"Sinatra\",\"email\":\"f.sinatra@gmail.com\"}");
+		assertEquals(resultAsString, "{\"userName\":\"Mike\",\"nickName\":\"Tyson\",\"email\":\"tyson.m@gmail.com\"}");
 
 	}
 

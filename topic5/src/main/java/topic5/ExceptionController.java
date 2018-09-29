@@ -19,11 +19,5 @@ public class ExceptionController {
 	public void handleAlreadyExists(UserNotFoundException ex) {
 		System.out.println("UserName already in use");
 	}
-	
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(ItemNotFoundException.class)
-	public void handleItemNotFound(ItemNotFoundException ex) {
-		System.out.println("Requested Item Not found");
-	}
 
 }
