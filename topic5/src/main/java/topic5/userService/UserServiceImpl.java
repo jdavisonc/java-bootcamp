@@ -1,7 +1,6 @@
 package topic5.userService;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +19,10 @@ public class UserServiceImpl implements UserService {
 
 	@PostMapping("/user")
 	public User createUser(@RequestBody User user) {
-		
-		if(users.containsKey(user.getUserName())) {
+
+		if (users.containsKey(user.getUserName())) {
 			throw new UserAlreadyExistsException();
-		}		
+		}
 		users.put(user.getUserName(), user);
 		return user;
 	}
@@ -31,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	@DeleteMapping("/user/{userName}")
 	public Boolean deleteUser(@PathVariable String userName) {
 
-		if(users.containsKey(userName)) {
+		if (users.containsKey(userName)) {
 			users.remove(userName);
 			return true;
 		}
@@ -40,40 +39,42 @@ public class UserServiceImpl implements UserService {
 
 	@PostMapping("/user/updateByUserName/{userName}")
 	public User updateUserByUserName(@RequestBody User user, @PathVariable String userName) {
-		if(users.containsKey(userName)) {
-			return users.put(userName, user);
+		if (users.containsKey(userName)) {
+			users.put(userName, user);
+			return user;
 		}
 		throw new UserNotFoundException();
 	}
 
 	@PostMapping("/user/updateByNickName/{nickName}")
 	public User updateUserByNickName(@RequestBody User user, @PathVariable String nickName) {
-		for (int i = 0; i < users.size(); i++) {
-			if (users.get(i).getNickName().equals(nickName)) {
-				users.set(i, user);
+		for (User u : users.values()) {
+			if (u.getNickName().equals(nickName)) {
+				users.put(u.getUserName(), user);
 				return user;
 			}
 		}
+
 		throw new UserNotFoundException();
 	}
 
 	@GetMapping("/user/nickName/{nickName}")
 	public User getUserByNickName(@PathVariable String nickName) {
-		for (User u : this.users) {
+		for (User u : users.values()) {
 			if (u.getNickName().equals(nickName)) {
 				return u;
 			}
 		}
+
 		throw new UserNotFoundException();
 	}
 
 	@GetMapping("/user/userName/{userName}")
 	public User getUserByUserName(@PathVariable String userName) {
-		for (User u : users) {
-			if (u.getUserName().equals(userName)) {
-				return u;
-			}
+		if (users.containsKey(userName)) {
+			return users.get(userName);
 		}
+
 		throw new UserNotFoundException();
 	}
 

@@ -37,7 +37,6 @@ public class CartServiceImplTest {
 				.andExpect(status().isOk());
 		this.mockMvc.perform(get("/items")).andExpect(status().isOk())
 				.andExpect(jsonPath("$[*].name", hasItem("apple"))).andExpect(jsonPath("$[*].price", hasItem(50)));
-		
 
 	}
 
@@ -74,23 +73,12 @@ public class CartServiceImplTest {
 
 	@Test
 	public void testRemove() throws Exception {
-		this.mockMvc.perform(post("/items").contentType(MediaType.APPLICATION_JSON).content("{\"name\":\"apple\",\"price\":50}"))
-		.andExpect(status().isOk());
-		this.mockMvc.perform(delete("/items/{id}", 0)).andExpect(status().isOk());
-		MvcResult result = this.mockMvc.perform(get("/items")).andExpect(status().isOk()).andReturn();
-		
+		MvcResult result = this.mockMvc.perform(post("/items").contentType(MediaType.APPLICATION_JSON).content("{\"name\":\"apple\",\"price\":50}"))
+				.andExpect(status().isOk()).andReturn();
 		String resultAsString = result.getResponse().getContentAsString();
-		
-		JSONArray jsonArray = new JSONArray(resultAsString);
-		
-		for(int i=0; i < jsonArray.length() ; i++ ) {
-			JSONObject object = jsonArray.getJSONObject(i);
-			if (object.getInt("id") == 0) {
-				fail("Didnt delete the desired object");
-			}
-		}
-		assertTrue(true);
-		
+		JSONObject object = new JSONObject(resultAsString);
+		int id = object.getInt("id");
+		this.mockMvc.perform(delete("/items/{id}", id)).andExpect(status().isOk());
 	}
 
 }

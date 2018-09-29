@@ -1,0 +1,5 @@
+package topic5;
+
+public class ItemNotFoundException extends RuntimeException{
+
+}

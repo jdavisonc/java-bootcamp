@@ -605,3 +605,8 @@ topic2/.project
 topic4/.project
 topic5/.project
 *.iml
+*.cfs
+*.del
+*.dat
+*.index
+*.tree
