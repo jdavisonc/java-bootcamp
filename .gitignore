@@ -605,3 +605,17 @@ topic2/.project
 topic4/.project
 topic5/.project
 *.iml
+*.dat
+*.index
+*.tree
+*.del
+*.cfs
+*.fdx
+*.fdt
+*.frq
+*.nrm
+*.prx
+*.tis
+Topic 0/bin/.project
+topic4/bin/.project
+topic5/bin/.project
