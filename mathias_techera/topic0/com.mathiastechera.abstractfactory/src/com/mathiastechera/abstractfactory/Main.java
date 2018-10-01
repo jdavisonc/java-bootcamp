@@ -11,6 +11,7 @@ public class Main {
 	public static void main(String[] args) {
 		//Using an Abstract Factory Pattern in a simulation of different
 		//connections to a DB to retrieve information of a high school
+		//TODO change the factory from a factory of queries to a factory of connections 
 		AbstractFactory personsDataFactory = FactoryProducer.getFactory("PersonsData");
 
 		PersonDB studentsData = personsDataFactory.getPersonsData("Student");
