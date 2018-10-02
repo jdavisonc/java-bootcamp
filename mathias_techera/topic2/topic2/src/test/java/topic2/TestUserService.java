@@ -31,7 +31,8 @@ public class TestUserService {
 		User userDuplicated = new User( "111",  "pwdUser1" , "Jon", "Doe", "test1@example.com");
 		boolean result2 = userService.addUser(userDuplicated);
 				
-		assertTrue(result1 && !result2);
+		assertTrue(result1);
+		assertFalse(result2);
 	}
 	
 	@Test
@@ -54,7 +55,8 @@ public class TestUserService {
 		boolean result = userService.deleteUser(userService.getUserByDocument("222"));
 		int amountOfUsersExpected = 2;
 		
-		assertTrue(result && userService.getUserDB().size() == amountOfUsersExpected);
+		assertTrue(result);
+		assertTrue(userService.getUserDB().size() == amountOfUsersExpected);
 		
 	}
 

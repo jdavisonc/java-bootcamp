@@ -21,7 +21,7 @@ public class TestCartService {
 		Item apple = new Item("Apple", 10.0, 3);
 		Item orange = new Item("Orange", 12.0, 1);		
 		
-		assertTrue(!apple.equals(orange) );
+		assertFalse(apple.equals(orange) );
 	}
 	
 	@Test
@@ -38,7 +38,8 @@ public class TestCartService {
 		cart.addItem(apple2);
 		cart.addItem(apple3);		
 		
-		assertTrue(cart.getAmountOfDifferentItems() == 3 && cart.getAmountOfItems() == 4);
+		assertTrue(cart.getAmountOfDifferentItems() == 3 );
+		assertTrue( cart.getAmountOfItems() == 4);
 		
 	}
 	
@@ -57,7 +58,8 @@ public class TestCartService {
 		cart.removeItem(orange2);
 		cart.removeItem(apple2);
 		
-		assertTrue(cart.getAmountOfDifferentItems() == 1 && cart.getAmountOfItems() == 1);
+		assertTrue(cart.getAmountOfDifferentItems() == 1);
+		assertTrue(cart.getAmountOfItems() == 1);
 	}
 	
 	@Test

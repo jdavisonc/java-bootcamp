@@ -1,36 +1,18 @@
 package com.mathiastechera.app;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
+import static org.junit.Assert.*;
+import org.junit.Before;
 
 import com.mathiastechera.app.App;
 
-public class AppTest 
-    extends TestCase
-{
+public class AppTest {
 
     protected int value1;
     protected int value2;
 
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
+    
+    @Before
     protected void setUp(){
         value1 = 5;
         value2 = 3;
@@ -39,6 +21,7 @@ public class AppTest
     /**
      * Test the add method
      */
+    @Test
     public void testAppAdd()
     {
         App app = new App();
