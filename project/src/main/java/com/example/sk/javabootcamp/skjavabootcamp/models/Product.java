@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 
 @JsonIdentityInfo(
@@ -22,6 +19,7 @@ public class Product {
     @GeneratedValue
     private Long id;
     private Long price;
+    @Column(unique = true)
     private String name;
     private String description;
     @ManyToOne

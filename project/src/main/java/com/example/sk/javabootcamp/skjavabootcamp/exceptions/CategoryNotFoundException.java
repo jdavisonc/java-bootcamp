@@ -4,4 +4,9 @@ public class CategoryNotFoundException extends RuntimeException {
     public CategoryNotFoundException(Long id) {
         super(id.toString());
     }
+
+    public CategoryNotFoundException(String name) {
+        super(name);
+    }
+
 }

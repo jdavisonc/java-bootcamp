@@ -30,13 +30,13 @@ public class CategoryController {
     }
 
     @GetMapping("categories/{id}")
-    Category one(@PathVariable Long id){
+    Category one(@PathVariable("id") Long id){
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
     @PutMapping("/categories/{id}")
-    Category replaceCategory(@RequestBody Category newCategory ,@PathVariable Long id){
+    Category replaceCategory(@RequestBody Category newCategory ,@PathVariable("id") Long id){
         return categoryRepository.findById(id)
                 .map(category -> {
                     category.setName(newCategory.getName());
@@ -49,14 +49,20 @@ public class CategoryController {
     }
 
     @DeleteMapping("/categories/{id}")
-    void deleteCategory(@PathVariable Long id){
+    void deleteCategory(@PathVariable("id") Long id){
         categoryRepository.deleteById(id);
     }
 
     @GetMapping("/categories/{id}/productos")
-    Set<Product> productsByCategorie(@PathVariable Long id){
+    Set<Product> productsByCategorie(@PathVariable("id") Long id){
         Category category = one(id);
         return  category.getProducts();
+    }
+
+    @GetMapping("/categories/name/{name}")
+    Category categoryByName(@PathVariable("name") String name){
+        return categoryRepository.getCategoryByName(name)
+                .orElseThrow((() -> new CategoryNotFoundException(name)));
     }
 
 }

@@ -22,10 +22,6 @@ public class CartController {
         return cartRepository.findAll();
     }
 
-    @PostMapping("/carts")
-    Cart newCart(@RequestBody Cart newCart) {
-        return cartRepository.save(newCart);
-    }
 
     @GetMapping("/carts/{id}")
     Cart one(@PathVariable Long id) {

@@ -1,11 +1,13 @@
 package com.example.sk.javabootcamp.skjavabootcamp.controllers;
 
 import com.example.sk.javabootcamp.skjavabootcamp.exceptions.UserNotFoundException;
+import com.example.sk.javabootcamp.skjavabootcamp.models.Product;
 import com.example.sk.javabootcamp.skjavabootcamp.models.User;
 import com.example.sk.javabootcamp.skjavabootcamp.repositories.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class UserController {
@@ -51,6 +53,11 @@ public class UserController {
     @DeleteMapping("/users/{id}")
     void deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
+    }
+
+    @GetMapping("/users/{id}/recommendations")
+    Set<Product> getRecommendations(@PathVariable Long id){
+        return one(id).getRecommendedProducts();
     }
 
 }

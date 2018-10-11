@@ -35,7 +35,7 @@ public class ProductController {
 
     @GetMapping("/products/name/{name}")
     Product getProductByName(@PathVariable String name){
-        return productRepository.findProductByName(name)
+        return productRepository.getProductByName(name)
                 .orElseThrow(() -> new ProductNotFoundException(name));
     }
 

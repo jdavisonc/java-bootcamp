@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,8 +20,10 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(unique = true)
     private String username;
     private String password;
+    @Column(unique = true)
     private String email;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Purchase> purchases = new HashSet<>();
@@ -31,6 +34,19 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public Set<Product> getRecommendedProducts(){
+
+        Set<Product> products = new HashSet<>();
+
+        for(Purchase purchase : this.purchases){
+            for(Product product : purchase.getProducts()){
+                products.add(product);
+            }
+        }
+
+        return products;
     }
 
 
