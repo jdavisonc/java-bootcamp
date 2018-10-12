@@ -29,40 +29,31 @@ public class CategoryController {
         return categoryRepository.save(newCategory);
     }
 
-    @GetMapping("categories/{id}")
-    Category one(@PathVariable("id") Long id){
-        return categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException(id));
+    @GetMapping("categories/{name}")
+    Category one(@PathVariable("name") String name){
+        return categoryRepository.findCategoryByName(name)
+                .orElseThrow(() -> new CategoryNotFoundException(name));
     }
 
-    @PutMapping("/categories/{id}")
-    Category replaceCategory(@RequestBody Category newCategory ,@PathVariable("id") Long id){
-        return categoryRepository.findById(id)
+    @PutMapping("/categories/{name}")
+    Category replaceCategory(@RequestBody Category newCategory ,@PathVariable("name") String name){
+        return categoryRepository.findCategoryByName(name)
                 .map(category -> {
                     category.setName(newCategory.getName());
                     return categoryRepository.save(category);
                 })
-                .orElseGet(() -> {
-                    newCategory.setId(id);
-                    return categoryRepository.save(newCategory);
-                });
+                .orElseGet(() -> categoryRepository.save(newCategory));
     }
 
-    @DeleteMapping("/categories/{id}")
-    void deleteCategory(@PathVariable("id") Long id){
-        categoryRepository.deleteById(id);
+    @DeleteMapping("/categories/{name}")
+    void deleteCategoryByName(@PathVariable("name") String name){
+        categoryRepository.deleteCategoryByName(name);
     }
 
-    @GetMapping("/categories/{id}/productos")
-    Set<Product> productsByCategorie(@PathVariable("id") Long id){
-        Category category = one(id);
+    @GetMapping("/categories/{name}/products")
+    Set<Product> productsByCategorie(@PathVariable("name") String name){
+        Category category = one(name);
         return  category.getProducts();
-    }
-
-    @GetMapping("/categories/name/{name}")
-    Category categoryByName(@PathVariable("name") String name){
-        return categoryRepository.getCategoryByName(name)
-                .orElseThrow((() -> new CategoryNotFoundException(name)));
     }
 
 }

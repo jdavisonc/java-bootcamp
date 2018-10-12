@@ -34,7 +34,7 @@ public class PurchaseController {
     }
 
     @GetMapping("/purchases/{id}")
-    Purchase one(@PathVariable Long id) {
+    Purchase one(@PathVariable("id") Long id) {
         return purchaseRepository.findById(id)
                 .orElseThrow(() -> new PurchaseNotFoundException(id));
 

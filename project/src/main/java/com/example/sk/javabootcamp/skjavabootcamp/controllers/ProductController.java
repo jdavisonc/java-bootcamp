@@ -22,26 +22,20 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    Product newCategory(@RequestBody Product newProduct) {
+    Product newProduct(@RequestBody Product newProduct) {
         return productRepository.save(newProduct);
     }
 
-    @GetMapping("/products/{id}")
-    Product one(@PathVariable Long id) {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException(id));
-
-    }
-
-    @GetMapping("/products/name/{name}")
-    Product getProductByName(@PathVariable String name){
-        return productRepository.getProductByName(name)
+    @GetMapping("/products/{name}")
+    Product one(@PathVariable("name") String name) {
+        return productRepository.findProductByName(name)
                 .orElseThrow(() -> new ProductNotFoundException(name));
+
     }
 
-    @PutMapping("/products/{id}")
-    Product replaceProduct(@RequestBody Product newProduct, @PathVariable Long id) {
-        return productRepository.findById(id)
+    @PutMapping("/products/{name}")
+    Product replaceProduct(@RequestBody Product newProduct, @PathVariable("name") String name) {
+        return productRepository.findProductByName(name)
                 .map(product -> {
                     product.setName(newProduct.getName());
                     product.setCategory(newProduct.getCategory());
@@ -49,15 +43,12 @@ public class ProductController {
                     product.setPrice(newProduct.getPrice());
                     return productRepository.save(product);
                 })
-                .orElseGet(() -> {
-                    newProduct.setId(id);
-                    return productRepository.save(newProduct);
-                });
+                .orElseGet(() -> productRepository.save(newProduct));
     }
 
-    @DeleteMapping("/products/{id}")
-    void deleteCategory(@PathVariable Long id) {
-        productRepository.deleteById(id);
+    @DeleteMapping("/products/{name}")
+    void deleteProduct(@PathVariable("name") String name) {
+        productRepository.deleteProductByName(name);
     }
 
 }

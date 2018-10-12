@@ -28,36 +28,39 @@ public class UserController {
         return userRepository.save(newUser);
     }
 
-    @GetMapping("/users/{id}")
-    User one(@PathVariable Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
+    @GetMapping("/users/{username}")
+    User findByUsername(@PathVariable("username") String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
 
     }
+    @GetMapping("/users/email/{email}")
+    User findByEmail(@PathVariable("email") String email){
+        return userRepository.findByEmail(email)
+                .orElseThrow(() ->  new UserNotFoundException(email));
+    }
 
-    @PutMapping("/users/{id}")
-    User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
-        return userRepository.findById(id)
+
+    @PutMapping("/users/{username}")
+    User replaceUser(@RequestBody User newUser, @PathVariable("username") String username) {
+        return userRepository.findByUsername(username)
                 .map(user -> {
                     user.setUsername(newUser.getUsername());
                     user.setEmail(newUser.getEmail());
                     user.setPassword(newUser.getPassword());
                     return userRepository.save(user);
                 })
-                .orElseGet(() -> {
-                    newUser.setId(id);
-                    return userRepository.save(newUser);
-                });
+                .orElseGet(() -> userRepository.save(newUser));
     }
 
-    @DeleteMapping("/users/{id}")
-    void deleteUser(@PathVariable Long id) {
-        userRepository.deleteById(id);
+    @DeleteMapping("/users/{username}")
+    void deleteUser(@PathVariable("username") String username) {
+        userRepository.deleteByUsername(username);
     }
 
-    @GetMapping("/users/{id}/recommendations")
-    Set<Product> getRecommendations(@PathVariable Long id){
-        return one(id).getRecommendedProducts();
+    @GetMapping("/users/{username}/recommendations")
+    Set<Product> getRecommendations(@PathVariable("username") String username) {
+        return findByUsername(username).getRecommendedProducts();
     }
 
 }
