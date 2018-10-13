@@ -12,12 +12,13 @@ import java.util.Set;
         property = "id")
 @Data
 @Entity
+@Table(name = "purchase")
 public class Purchase {
 
     @Id
     @GeneratedValue
     private Long id;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Product> products;
 
     public Purchase(Set<Product> products) {

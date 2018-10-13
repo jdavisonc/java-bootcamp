@@ -1,13 +1,13 @@
 package com.example.sk.javabootcamp.skjavabootcamp.repositories;
 
-import com.example.sk.javabootcamp.skjavabootcamp.models.User;
+import com.example.sk.javabootcamp.skjavabootcamp.models.ShopUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<ShopUser, Long> {
 
-    Optional<User> findByUsername(String username);
-    Optional<User> findByEmail(String email);
+    Optional<ShopUser> findByUsername(String username);
+    Optional<ShopUser> findByEmail(String email);
     void deleteByUsername(String username);
 }

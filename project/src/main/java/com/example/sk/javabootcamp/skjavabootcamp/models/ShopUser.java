@@ -1,36 +1,44 @@
 package com.example.sk.javabootcamp.skjavabootcamp.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "Id")
 @Data
 @Entity
-public class User {
+@Table(name ="user")
+public class ShopUser {
 
     @Id
     @GeneratedValue
+    @EqualsAndHashCode.Exclude
     private Long id;
+
     @Column(unique = true)
     private String username;
     private String password;
+
     @Column(unique = true)
     private String email;
-    @OneToMany(cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private Set<Purchase> purchases = new HashSet<>();
-    @OneToOne (cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @OneToOne (mappedBy = "user" , cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private Cart cart = new Cart();
 
-    public User(String username, String password, String email) {
+    public ShopUser(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;

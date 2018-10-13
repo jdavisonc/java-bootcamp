@@ -3,7 +3,7 @@ package com.example.sk.javabootcamp.skjavabootcamp.controllers;
 import com.example.sk.javabootcamp.skjavabootcamp.models.Category;
 import com.example.sk.javabootcamp.skjavabootcamp.models.Product;
 import com.example.sk.javabootcamp.skjavabootcamp.models.Purchase;
-import com.example.sk.javabootcamp.skjavabootcamp.models.User;
+import com.example.sk.javabootcamp.skjavabootcamp.models.ShopUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,17 +40,16 @@ public class UserControllerTest {
 
     @Test
     public void allTest() throws Exception {
-        User john = new User("John", "password", "john@gmail.com");
-        User dave = new User("Dave", "password", "dave@gmail.com");
+        ShopUser john = new ShopUser("John", "password", "john@gmail.com");
+        ShopUser dave = new ShopUser("Dave", "password", "dave@gmail.com");
 
-        List<User> users = new ArrayList<>();
-        users.add(john);
-        users.add(dave);
+        List<ShopUser> shopUsers = new ArrayList<>();
+        shopUsers.add(john);
+        shopUsers.add(dave);
 
-        when(userController.all()).thenReturn(users);
+        when(userController.all()).thenReturn(shopUsers);
 
-        mockMvc.perform(get("/users"))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        this.mockMvc.perform(get("/users"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].username", is("John")))
                 .andExpect(jsonPath("$[1].username", is("Dave")))
@@ -62,7 +61,7 @@ public class UserControllerTest {
 
     @Test
     public void newUserTest() throws Exception {
-        User dave = new User("Dave", "password", "dave@gmail.com");
+        ShopUser dave = new ShopUser("Dave", "password", "dave@gmail.com");
 
         when(userController.newUser(dave)).thenReturn(dave);
 
@@ -78,7 +77,7 @@ public class UserControllerTest {
 
     @Test
     public void findByUsernameTest() throws Exception {
-        User dave = new User("Dave", "password", "dave@gmail.com");
+        ShopUser dave = new ShopUser("Dave", "password", "dave@gmail.com");
 
         when(userController.findByUsername(dave.getUsername())).thenReturn(dave);
 
@@ -93,7 +92,7 @@ public class UserControllerTest {
 
     @Test
     public void findByEmailTest() throws Exception {
-        User dave = new User("Dave", "password", "dave@gmail.com");
+        ShopUser dave = new ShopUser("Dave", "password", "dave@gmail.com");
 
         when(userController.findByEmail(dave.getEmail())).thenReturn(dave);
 
@@ -108,8 +107,8 @@ public class UserControllerTest {
 
     @Test
     public void replaceUserTest() throws Exception {
-        User dave = new User("Dave", "password", "dave@gmail.com");
-        User john = new User("John", "password", "john@gmail.com");
+        ShopUser dave = new ShopUser("Dave", "password", "dave@gmail.com");
+        ShopUser john = new ShopUser("John", "password", "john@gmail.com");
 
         when(userController.replaceUser(john, dave.getUsername())).thenReturn(john);
 
@@ -124,7 +123,7 @@ public class UserControllerTest {
 
     @Test
     public void deleteUserTest() throws Exception {
-        User john = new User("John", "password", "john@gmail.com");
+        ShopUser john = new ShopUser("John", "password", "john@gmail.com");
         doNothing().when(userController).deleteUser(john.getUsername());
 
         mockMvc.perform(delete("/users/{username}", john.getUsername()))
@@ -136,7 +135,7 @@ public class UserControllerTest {
 
     @Test
     public void getRecommendations() throws Exception {
-        User john = new User("John", "password", "john@gmail.com");
+        ShopUser john = new ShopUser("John", "password", "john@gmail.com");
         Purchase purchaseOne = new Purchase(getMockProducts());
         Purchase purchaseTwo = new Purchase(getMockProducts());
         Set<Purchase> purchases = new HashSet<>();

@@ -16,13 +16,20 @@ import java.util.Set;
         property = "id")
 @Data
 @Entity
+@Table(name = "cart")
 public class Cart {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
+    @Column(name = "id")
     private Long id;
-    @OneToMany(cascade = CascadeType.ALL)
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Product> products = new HashSet<>();
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "userId")
+    private ShopUser user;
 
     public void addProduct(Product product){
         products.add(product);

@@ -16,6 +16,7 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(exclude = {"products"})
 @Entity
+@Table(name = "category")
 public class Category {
 
     @Id
@@ -23,7 +24,9 @@ public class Category {
     private Long id;
     @Column(unique = true)
     private String name;
-    @OneToMany(mappedBy = "category")
+
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     @JsonBackReference
     private Set<Product> products = new HashSet<>();
 

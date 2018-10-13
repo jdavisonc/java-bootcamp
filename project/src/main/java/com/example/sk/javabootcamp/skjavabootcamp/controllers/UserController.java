@@ -1,8 +1,10 @@
 package com.example.sk.javabootcamp.skjavabootcamp.controllers;
 
 import com.example.sk.javabootcamp.skjavabootcamp.exceptions.UserNotFoundException;
+import com.example.sk.javabootcamp.skjavabootcamp.models.Cart;
 import com.example.sk.javabootcamp.skjavabootcamp.models.Product;
-import com.example.sk.javabootcamp.skjavabootcamp.models.User;
+import com.example.sk.javabootcamp.skjavabootcamp.models.ShopUser;
+import com.example.sk.javabootcamp.skjavabootcamp.repositories.CartRepository;
 import com.example.sk.javabootcamp.skjavabootcamp.repositories.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,44 +15,53 @@ import java.util.Set;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final CartRepository cartRepository;
 
-    UserController(UserRepository userRepository) {
+    UserController(UserRepository userRepository, CartRepository cartRepository) {
         this.userRepository = userRepository;
+        this.cartRepository = cartRepository;
     }
 
     @GetMapping("/users")
-    List<User> all() {
+    List<ShopUser> all() {
         return userRepository.findAll();
     }
 
     @PostMapping("/users")
-    User newUser(@RequestBody User newUser) {
-        return userRepository.save(newUser);
+    ShopUser newUser(@RequestBody ShopUser newShopUser) {
+
+        Cart cart = newShopUser.getCart();
+        if (cart == null){
+            cart = new Cart();
+        }
+        cart.setUser(newShopUser);
+        cartRepository.save(cart);
+        return userRepository.save(newShopUser);
     }
 
     @GetMapping("/users/{username}")
-    User findByUsername(@PathVariable("username") String username) {
+    ShopUser findByUsername(@PathVariable("username") String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
 
     }
     @GetMapping("/users/email/{email}")
-    User findByEmail(@PathVariable("email") String email){
+    ShopUser findByEmail(@PathVariable("email") String email){
         return userRepository.findByEmail(email)
                 .orElseThrow(() ->  new UserNotFoundException(email));
     }
 
 
     @PutMapping("/users/{username}")
-    User replaceUser(@RequestBody User newUser, @PathVariable("username") String username) {
+    ShopUser replaceUser(@RequestBody ShopUser newShopUser, @PathVariable("username") String username) {
         return userRepository.findByUsername(username)
-                .map(user -> {
-                    user.setUsername(newUser.getUsername());
-                    user.setEmail(newUser.getEmail());
-                    user.setPassword(newUser.getPassword());
-                    return userRepository.save(user);
+                .map(shopUser -> {
+                    shopUser.setUsername(newShopUser.getUsername());
+                    shopUser.setEmail(newShopUser.getEmail());
+                    shopUser.setPassword(newShopUser.getPassword());
+                    return userRepository.save(shopUser);
                 })
-                .orElseGet(() -> userRepository.save(newUser));
+                .orElseGet(() -> userRepository.save(newShopUser));
     }
 
     @DeleteMapping("/users/{username}")

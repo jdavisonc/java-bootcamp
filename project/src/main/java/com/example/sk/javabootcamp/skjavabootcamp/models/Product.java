@@ -13,6 +13,7 @@ import javax.persistence.*;
         property = "id")
 @Data
 @Entity
+@Table(name = "product")
 public class Product {
 
     @Id
@@ -22,7 +23,9 @@ public class Product {
     @Column(unique = true)
     private String name;
     private String description;
+
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Product(String name, Long price, String description, Category category) {
