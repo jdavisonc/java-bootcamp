@@ -28,7 +28,7 @@ public class itemSearch {
 			Statement sentence = db.conn(database).createStatement();
 			ArrayList<dataItems> productlist = new ArrayList<dataItems>();
 			query = "SELECT * FROM products";
-			boolean catbool  = category==0;
+			boolean catbool = category==0;
 			boolean namebool = nameProd=="";
 			if (!(catbool) && !(namebool)){
 				query = query + " WHERE CategoryProd = " + category + " AND NameProd LIKE '%" + nameProd + "%';";

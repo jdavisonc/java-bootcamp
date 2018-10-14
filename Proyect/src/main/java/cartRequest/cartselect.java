@@ -36,7 +36,7 @@ public class cartselect {
 			ResultSet cartSelected = sentence.executeQuery(query);
 			//add data to arraylist
 			while (cartSelected.next()) {
-				prodName  = cartSelected.getNString("NameProd");
+				prodName = cartSelected.getNString("NameProd");
 				prodPrice = cartSelected.getFloat("PriceProd");
 				cartitems item = new cartitems(prodName, prodPrice);
 				cartdata.add(item);

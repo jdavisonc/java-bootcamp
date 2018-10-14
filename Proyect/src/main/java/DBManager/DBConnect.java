@@ -14,10 +14,10 @@ public class DBConnect {
 	 * @param db	Database object with user, password and database name as strings
 	 */
 	public Connection conn(Database db) {
-		String User 	= db.getUser();
-		String Pwd		= db.getPwd();
+		String User = db.getUser();
+		String Pwd = db.getPwd();
 		String database = db.getdb();
-		String Url		= "jdbc:mysql://localhost:3306/" + database + "?useSSL=false&serverTimezone=UTC";
+		String Url = "jdbc:mysql://localhost:3306/" + database + "?useSSL=false&serverTimezone=UTC";
 		Connection con = null;
 		try {
 			con = DriverManager.getConnection(Url,User,Pwd);

@@ -8,8 +8,8 @@ public class DBConnection {
 	
 	public DBConnection(String user, String password, String databasename) {
 		this.User = user;
-		this.Pwd  = password;
-		this.db   = databasename;
+		this.Pwd = password;
+		this.db = databasename;
 	}
 
 	public String getUser() {

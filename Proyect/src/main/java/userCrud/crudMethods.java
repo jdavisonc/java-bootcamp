@@ -76,9 +76,9 @@ public class crudMethods {
 			if (selectedUser.first()) {
 				usersCRUD uc = new usersCRUD(userName, email, phone, address, nickName, password);
 				uc.userName = selectedUser.getString("firstName");
-				uc.email    = selectedUser.getString("email");
-				uc.phone    = selectedUser.getString("phone");
-				uc.address  = selectedUser.getString("address");
+				uc.email = selectedUser.getString("email");
+				uc.phone = selectedUser.getString("phone");
+				uc.address = selectedUser.getString("address");
 				uc.nickName = selectedUser.getString("nickName");
 				uc.password = selectedUser.getString("password");
 				userData.add(uc);
