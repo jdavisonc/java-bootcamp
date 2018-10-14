@@ -115,6 +115,8 @@ CREATE TABLE `purchasehistory` (
   `userPurchase` int(10) unsigned NOT NULL,
   `productname` varchar(45) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `productprice` int(10) unsigned NOT NULL,
+  `datepurchase` date NOT NULL,
+  `totalprice` float unsigned NOT NULL,
   PRIMARY KEY (`idPurchase`),
   UNIQUE KEY `idPurchase_UNIQUE` (`idPurchase`),
   KEY `ordernum` (`ordernum`),
@@ -174,4 +176,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-14 10:45:23
+-- Dump completed on 2018-10-14 15:11:33
