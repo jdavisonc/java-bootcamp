@@ -508,7 +508,7 @@
     "/cart/add": {
       "put": {
         "tags": [
-          "item"
+          "cart"
         ],
         "summary": "Add new Item to the cart",
         "description": "Add and item to the cart.",
@@ -657,19 +657,19 @@
         "id": {
           "type": "integer"
         },
-        "buyerid": {
+        "buyerID": {
           "type": "integer"
         },
-        "cartid": {
+        "cartID": {
           "type": "integer"
         },
-        "itemid": {
+        "itemID": {
           "type": "integer"
         },
         "amount": {
           "type": "integer"
         },
-        "unitvalue": {
+        "unitValue": {
           "type": "number"
         }
       },

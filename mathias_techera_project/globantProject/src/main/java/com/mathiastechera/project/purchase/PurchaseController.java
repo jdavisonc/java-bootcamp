@@ -1,6 +1,5 @@
 package com.mathiastechera.project.purchase;
 
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -38,7 +37,9 @@ public class PurchaseController {
 	/**
 	 * Ask for a user to search his shopping cart.
 	 * TODO implement a token for different carts for the same user in different sessions.
-	 * @param user
+	 * TODO Create a new purchase, take the items from the bodyRequest and add them to purchaseItems with purchaseID. Once the purchase is complete, clear the Cart and the cartItems.
+	 * @param buyerID
+	 * @param purchaseItems 
 	 * @return a Cart object.
 	 */
 	@PostMapping("/{buyerID}")

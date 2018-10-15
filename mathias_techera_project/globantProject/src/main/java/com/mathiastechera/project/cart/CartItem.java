@@ -17,8 +17,6 @@ public class CartItem {
 	private Integer buyerID;
 	@Column(name="cartid")
 	private Long cartID;
-	@Column(name="purchaseid")
-	private Long purchaseID;
 	@Column(name="itemid")
 	private Integer itemID;
 	@Column(name="amount")
@@ -44,12 +42,6 @@ public class CartItem {
 		return buyerID;
 	}
 
-	public Long getPurchaseID() {
-		return purchaseID;
-	}
-	public void setPurchaseID(Long purchaseID) {
-		this.purchaseID = purchaseID;
-	}
 	public Integer getItemID() {
 		return itemID;
 	}
