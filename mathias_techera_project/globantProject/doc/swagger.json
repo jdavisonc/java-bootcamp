@@ -1,0 +1,681 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the Swagger documentation for the Topic 5 from the Bootcamp of Globant",
+    "version": "1.0.0",
+    "title": "Mathias Techera Bootcamp Project",
+    "contact": {
+      "email": "mathiastecho@gmail.com"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about user"
+    },
+    {
+      "name": "item",
+      "description": "Operations about items"
+    },
+    {
+      "name": "cart",
+      "description": "Operations about the shopping cart"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/Users": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get all users",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/signup": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Creates a new user",
+        "description": "",
+        "operationId": "signup",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User and password of an existing user.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Bad request for an invalid schema."
+          },
+          "409": {
+            "description": "Conflict because an user already exist with that username."
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Check user and password",
+        "description": "",
+        "operationId": "login",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User and password of an existing user.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CredentialsLogin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CredentialsLogin"
+            }
+          },
+          "409": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Close a session of a certain user.",
+        "description": "",
+        "operationId": "logout",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User and token of an existing session.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CredentialsLogout"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CredentialsLogout"
+            }
+          },
+          "403": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/User/{username}": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Updated user",
+        "description": "Update the user info.",
+        "operationId": "replaceUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "name that need to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated user object. It will check if the username is the same in the path and the object.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid user schema",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user",
+        "description": "",
+        "operationId": "deleteUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/item/getAll": {
+      "get": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Get all items",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Item"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/item/": {
+      "post": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Creates a new item",
+        "description": "Creates a new item if the name doesn't exist on the system.",
+        "operationId": "newItem",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "New item data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          },
+          "400": {
+            "description": "Invalid Item schema",
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          },
+          "409": {
+            "description": "The item name already exist"
+          }
+        }
+      }
+    },
+    "/item/byName/{itemname}": {
+      "get": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Search for item by name",
+        "description": "Search in the system for a certain Item. For names with spaces use '-' as separator",
+        "operationId": "getItemByName",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "itemname",
+            "in": "path",
+            "description": "Name of the item that will be search.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          },
+          "404": {
+            "description": "The name doesn't exist in the system."
+          },
+          "500": {
+            "description": "Duplicated names in the system."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Search for item by name",
+        "description": "Search in the system for a certain Item. For names with spaces use '-' as separator",
+        "operationId": "updateItemByName",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "itemname",
+            "in": "path",
+            "description": "Name of the item that will be updated.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Item data to update in the system.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          },
+          "400": {
+            "description": "Error on the Item schema",
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          },
+          "404": {
+            "description": "The name doesn't exist in the system."
+          },
+          "500": {
+            "description": "Duplicated names in the system."
+          }
+        }
+      }
+    },
+    "/item/byCategory/{categoryname}": {
+      "get": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Search for item by name",
+        "description": "Search in the system for items with a certain category. For categories with a name with spaces use '-' as separator",
+        "operationId": "getItemByCategory",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "categoryname",
+            "in": "path",
+            "description": "Name of the category that will be search.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Item"
+              }
+            }
+          },
+          "404": {
+            "description": "The category namedoesn't exist in the system."
+          }
+        }
+      }
+    },
+    "/item/{itemname}": {
+      "delete": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Delete user",
+        "description": "",
+        "operationId": "deleteItem",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "itemname",
+            "in": "path",
+            "description": "The name of the item that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item deleted successfully"
+          },
+          "404": {
+            "description": "Item not found"
+          }
+        }
+      }
+    },
+    "/cart/getAll": {
+      "get": {
+        "tags": [
+          "cart"
+        ],
+        "summary": "Get all the carts",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Cart"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cart/show": {
+      "post": {
+        "tags": [
+          "cart"
+        ],
+        "summary": "Show the cart of certain user",
+        "description": "Receive an user and retrieve the cart that corresponds.",
+        "operationId": "showCart",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user owner of the cart wanted",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "schema": {
+              "$ref": "#/definitions/Cart"
+            }
+          },
+          "400": {
+            "description": "Invalid Item schema",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "409": {
+            "description": "The item name already exist"
+          }
+        }
+      }
+    },
+    "/cart/add": {
+      "put": {
+        "tags": [
+          "cart"
+        ],
+        "summary": "Add new Item to the cart",
+        "description": "Add and item to the cart.",
+        "operationId": "addItem",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Item that will be added to the cart.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CartItem"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          },
+          "400": {
+            "description": "Error on the Item schema",
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          },
+          "404": {
+            "description": "The name doesn't exist in the system."
+          },
+          "500": {
+            "description": "Duplicated names in the system."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "fname": {
+          "type": "string"
+        },
+        "lname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "CredentialsLogin"
+      }
+    },
+    "CredentialsLogin": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "CredentialsLogout": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "CredentialLogout"
+      }
+    },
+    "Item": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        },
+        "amount": {
+          "type": "integer"
+        },
+        "category": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Item"
+      }
+    },
+    "Cart": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "cartItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        },
+        "buyerid": {
+          "type": "integer"
+        },
+        "finalprice": {
+          "type": "number"
+        }
+      },
+      "xml": {
+        "name": "Cart"
+      }
+    },
+    "CartItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "buyerID": {
+          "type": "integer"
+        },
+        "cartID": {
+          "type": "integer"
+        },
+        "itemID": {
+          "type": "integer"
+        },
+        "amount": {
+          "type": "integer"
+        },
+        "unitValue": {
+          "type": "number"
+        }
+      },
+      "xml": {
+        "name": "Item"
+      }
+    }
+  }
+}
