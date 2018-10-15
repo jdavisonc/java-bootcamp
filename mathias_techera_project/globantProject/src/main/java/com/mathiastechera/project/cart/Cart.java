@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import com.mathiastechera.project.item.CartItem;
 
 @Entity
 public class Cart {

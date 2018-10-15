@@ -1,4 +1,4 @@
-package com.mathiastechera.project.item;
+package com.mathiastechera.project.purchase;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,17 +6,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name = "CartItem")
-@Table(name = "cartitem")
-public class CartItem {
+@Entity(name = "PurchaseItem")
+@Table(name = "purchaseitem")
+public class PurchaseItem {
 	@Id
     @GeneratedValue
     @Column(name="id")
 	private Integer id;
 	@Column(name="buyerid")
 	private Integer buyerID;
-	@Column(name="cartid")
-	private Long cartID;
+	@Column(name="purchaseid")
+	private Long purchaseid;
 	@Column(name="itemid")
 	private Integer itemID;
 	@Column(name="amount")
@@ -25,14 +25,14 @@ public class CartItem {
 	private Double unitValue;
 	
 	
-	public CartItem() {	
+	public PurchaseItem() {	
 	}
 	/**
-	 * The amount of CartItem is the amount of an specific Item in the Cart.
+	 * The amount of PurchaseItem is the amount of an specific Item in the Purchase.
 	 */
-	public CartItem( Integer buyerID, Long cartID , Integer itemID, Integer amount, Double unitValue) {
+	public PurchaseItem( Integer buyerID, Long purchaseid , Integer itemID, Integer amount, Double unitValue) {
 		this.buyerID = buyerID;
-		this.cartID = cartID;		
+		this.purchaseid = purchaseid;		
 		this.itemID = itemID;
 		this.amount = amount;
 		this.unitValue = unitValue;
@@ -64,12 +64,12 @@ public class CartItem {
 		this.buyerID = buyerID;
 	}
 
-	public Long getCartID() {
-		return cartID;
+	public Long getpurchaseid() {
+		return purchaseid;
 	}
 
-	public void setCartID(Long cartID) {
-		this.cartID = cartID;
+	public void setpurchaseid(Long purchaseid) {
+		this.purchaseid = purchaseid;
 	}
 	
 
@@ -98,7 +98,7 @@ public class CartItem {
 	}
 	@Override
 	public String toString() {
-		return "CartItem [id=" + id + ", buyerID=" + buyerID + ", cartID=" + cartID + ", itemID=" + itemID + ", amount="
+		return "PurchaseItem [id=" + id + ", buyerID=" + buyerID + ", purchaseid=" + purchaseid + ", itemID=" + itemID + ", amount="
 				+ amount + ", unitValue=" + unitValue + "]";
 	}
 	

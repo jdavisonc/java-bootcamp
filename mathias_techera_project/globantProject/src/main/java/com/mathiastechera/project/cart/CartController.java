@@ -2,7 +2,6 @@ package com.mathiastechera.project.cart;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mathiastechera.project.item.CartItem;
 import com.mathiastechera.project.user.User;
 
 @RestController
+@RequestMapping(value="/cart")
 public class CartController {
 	private final CartRepository repository;
 
@@ -26,7 +26,7 @@ public class CartController {
 	/**
 	 * @return All the Items
 	 */
-	@GetMapping("/cart/getAll")
+	@GetMapping("/getAll")
 	List<Cart> allItems() {
 		return repository.findAll();		
 	}
@@ -37,7 +37,7 @@ public class CartController {
 	 * @param user
 	 * @return a Cart object.
 	 */
-	@PostMapping("/cart/show")
+	@PostMapping("/show")
 	ResponseEntity<Cart> showCart(@RequestBody User user) {
 		if(user.getId() != null ) {
 			List<Cart> cartSearched = repository.findByBuyerID(user.getId());
@@ -54,7 +54,7 @@ public class CartController {
 	}
 	
 
-	@PutMapping("/cart/add/")
+	@PutMapping("/add")
 	ResponseEntity<Cart> addItem(@RequestBody CartItem cartitem) {
 		
 		if( cartitem.getBuyerID() != null && cartitem.getAmount() != null && cartitem.getItemID() != null && cartitem.getUnitValue() != null ) {			
