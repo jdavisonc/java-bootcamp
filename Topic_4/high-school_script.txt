@@ -1,0 +1,153 @@
+-- -----------------------------------------------------
+-- High-school
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Table `High-school`.`Student`
+-- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `Student`, `Course`, `Teacher`, `Course_student_list`;
+
+CREATE TABLE IF NOT EXISTS `Student` (
+  `Last_name_student` VARCHAR(20) NULL,
+  `First_name_student` VARCHAR(15) NULL,
+  `Registration_Number` INT NOT NULL AUTO_INCREMENT,
+  `Date_birth_student` DATE NULL,
+  PRIMARY KEY(Registration_Number));
+-- -----------------------------------------------------
+-- Table `High-school`.`Teacher`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Teacher` (
+  `idTeachers` INT NOT NULL AUTO_INCREMENT,
+  `First_name_teacher` VARCHAR(15) NULL,
+  `Last_name_teacher` VARCHAR(15) NULL,
+  `Date_birth_teacher` DATE NULL,
+  PRIMARY KEY(`idTeachers`));
+
+
+-- -----------------------------------------------------
+-- Table `High-school`.`Course`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Course` (
+  `idCourses` INT NOT NULL AUTO_INCREMENT,
+  `Course_name` VARCHAR(45) NULL,
+  `Hours_by_week` VARCHAR(45) NULL,
+  `Schedule_time` VARCHAR(45) NULL,
+  `Assigned_Teacher` INT NOT NULL,
+  PRIMARY KEY (`idCourses`, `Assigned_Teacher`),
+  CONSTRAINT `fk_Course_Teacher`
+    FOREIGN KEY (`Assigned_Teacher`)
+    REFERENCES `Teacher` (`idTeachers`));
+
+
+-- -----------------------------------------------------
+-- Table `High-school`.`Course_student_list`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Course_student_list` (
+  `idCourseStudentList` INT NOT NULL AUTO_INCREMENT,
+  `Course_idCourses` INT NOT NULL,
+  `Course_Teacher_idTeachers` INT NOT NULL,
+  `Student_idStudents` INT NOT NULL,
+  `Partial_1` INT NOT NULL,
+  `Partial_2` INT NOT NULL,
+  `Partial_3` INT NOT NULL,
+  `Final_grade` INT NOT NULL,
+  PRIMARY KEY (`idCourseStudentList`),
+  CONSTRAINT `fk_School_Course`
+    FOREIGN KEY (`Course_idCourses` , `Course_Teacher_idTeachers`)
+    REFERENCES `Course` (`idCourses` , `Assigned_Teacher`)
+  );
+    
+ALTER TABLE Student
+AUTO_INCREMENT = 4;
+INSERT INTO Teacher VALUES 
+  (1,'Pedro','Gonzalez','1986-05-04'),
+  (2,'Rodrigo','Perez','1990-04-12'),
+  (3,'Jorge','Martinez','1987-03-06');
+
+COMMIT;
+
+INSERT INTO Course VALUES 
+  
+  (4, 'Math',3,'Tuesday: 08:00 - 11:00', 1),
+  (5, 'History',2,'Thursday: 08:30 - 10:30', 2),
+  (6, 'Chemistry',2, 'Monday: 09:00 - 11:00', 3);
+
+COMMIT;
+
+INSERT INTO Student VALUES
+  ('Rodriguez', 'Juan', 1236,'1997-03-12'),
+  ('Perez', 'Mateo', 1127, '1997-07-11'),
+  ('James', 'Jessy', 1637,'1997-04-12'),
+  ('Connery', 'Mathew', 1111,'1997-02-11'),
+  ('Williams', 'Peter', 1622,'1996-12-11'),
+  ('Thompson', 'Edward', 1623,'1997-05-03'),
+  ('Miller', 'Emily', 1634,'1997-07-11'),
+  ('Mitchell', 'Lisa', 1567, '1997-03-03'),
+  ('Phillips', 'Julia', 1256,'1998-04-11'),
+  ('Robinson', 'Amelia', 1235, '1996-08-11');
+
+COMMIT;
+
+-- Insert information for 3 teachers, 3 courses and 10 students per course.
+INSERT INTO Course_student_list VALUES
+  (30,4,1,10,6,6,8,7),
+  (31,4,1,11,6,8,9,7),
+  (32,4,1,12,8,8,6,7),
+  (33,4,1,13,8,10,9,9),
+  (34,4,1,14,4,2,5,3),
+  (35,4,1,15,5,7,8,6),
+  (36,4,1,16,8,8,10,9),
+  (37,4,1,17,5,7,8,6),
+  (38,4,1,18,6,2,6,4),
+  (39,4,1,19,2,7,8,6),
+  (40,5,2,10,10,10,10,10),
+  (41,5,2,11,10,7,8,8),
+  (42,5,2,12,5,6,7,6),
+  (43,5,2,13,5,2,4,3),
+  (44,5,2,14,7,8,9,9),
+  (45,5,2,15,7,5,6,6),
+  (46,5,2,16,10,8,7,8),
+  (47,5,2,17,6,7,9,5),
+  (48,5,2,18,7,5,6,6),
+  (49,5,2,19,3,6,3,5),
+  (50,6,3,10,7,8,8,8),
+  (51,6,3,11,3,7,8,7),
+  (52,6,3,12,3,6,7,6),
+  (53,6,3,13,3,7,8,6),
+  (54,6,3,14,4,7,8,6),
+  (55,6,3,15,4,7,8,6),
+  (56,6,3,16,3,7,8,6),
+  (57,6,3,17,5,7,8,6),
+  (58,6,3,18,6,8,9,8),
+  (59,6,3,19,5,7,8,6);
+  
+  COMMIT;
+  
+  -- List students and teachers for a given course.
+  
+  SELECT c.course_name as Course,
+  CONCAT(t.last_Name_teacher, ", ", t.first_Name_teacher ) as Assigned_Teacher,
+  CONCAT(s.last_Name_student, ", ", s.first_Name_student) as Student
+  FROM Course as c, teacher as t, student as s
+  WHERE c.idCourses = 6
+  GROUP BY Student
+  ORDER BY Student ASC;
+  
+  -- Percentage of students that passed/failed a given course. (Grades are from 1 to 10, where 6 is the minimum to pass)
+  SELECT 
+  CONCAT(round(count(c.final_grade) * 100 / 10), "%") as Failed,
+  CONCAT(round(100 - count(c.final_grade) * 100 / 10), "%") as Approved
+  FROM Course_student_list as c
+  WHERE c.final_grade < 6 AND c.course_idCourses = 4
+  GROUP BY c.course_idCourses;
+  
+  -- For a given teacher, list the timeline for each course that he is assigned to (ordered by date), and the course name. 
+  
+  SELECT CONCAT(t.last_name_teacher, ", ", t.first_name_teacher) as Teacher,
+  CONCAT(c.Schedule_time, " ", c.course_name) as Schedule
+  FROM Course as c, teacher as t
+  WHERE t.idTeachers = 3
+  GROUP BY teacher
+  ORDER BY c.Schedule_time ASC;
+  
+  

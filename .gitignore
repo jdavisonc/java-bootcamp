@@ -1,12 +1,18 @@
 *.class
+Topic_0/.metadata/
+Topic_0/.recommenders/
+Topic_0/.settings/
+Topic_0/.bin/
+Topic_0/src/.metadata/
+Topic_1/my-app/.settings/
+Topic_1/my-app/bin/
+Topic_1/my-app/target
+Topic_1/my-app/.classpath
+Topic_1/my-app/.project
+Topics_2_3/.settings/
+Topics_2_3/bin/
+Topics_2_3/target/
+Topics_2_3/src/bin/
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
 
-# Package Files #
-*.jar
-*.war
-*.ear
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
